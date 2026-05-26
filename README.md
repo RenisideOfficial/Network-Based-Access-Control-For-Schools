@@ -1,88 +1,110 @@
-You're right – my apologies. Here is a **correct, generic GitHub README** (not a thesis) that uses `pnpm` and is ready to copy-paste as formatted markdown.
+# Entry Log System – Network-Based Access Control
 
-```markdown
-# Entry Log System – Network‑Based Access Control
+A web-based staff and visitor entry logging system with QR authentication, JWT security, and network-based access control.
 
-A web‑based staff and visitor entry logging system with QR authentication, JWT security, and network‑based access control. Built with Node.js, Express, Sequelize, MySQL, and vanilla frontend.
+Built with Node.js, Express, Sequelize, MySQL, and vanilla JavaScript.
 
 ---
 
 ## ✨ Features
 
-- **QR login** – staff scans QR → email pre‑filled → logs in with password (sent via email on account creation)
-- **Network validation** – check‑in/out only allowed from authorised Wi‑Fi subnets (prevents remote attendance fraud)
-- **Admin dashboard** – staff management, visitor registration, attendance logs, CSV export, live stats
-- **Email notifications** – new staff receive auto‑generated credentials via email (Nodemailer)
-- **Responsive UI** – glassmorphism design, works on desktop and mobile
+- QR-based staff authentication
+- Secure attendance check-in/check-out
+- Network/IP validation for attendance actions
+- Admin dashboard with analytics
+- Visitor registration system
+- CSV attendance export
+- JWT authentication
+- Role-based access control
+- Responsive UI design
+- Automated email credential delivery
 
 ---
 
 ## 🧱 Tech Stack
 
-| Area            | Tools                                         |
-| --------------- | --------------------------------------------- |
-| Backend         | Node.js, Express, Sequelize (ORM)             |
-| Database        | MySQL                                         |
-| Auth            | JWT, bcrypt                                   |
-| Frontend        | HTML5, CSS3, vanilla JS, FontAwesome          |
-| QR Code         | `qrcode` (backend), `html5-qrcode` (frontend) |
-| Email           | Nodemailer (Gmail SMTP / Mailtrap)            |
-| Package Manager | pnpm                                          |
+| Layer           | Technology                    |
+| --------------- | ----------------------------- |
+| Backend         | Node.js, Express              |
+| Database        | MySQL                         |
+| ORM             | Sequelize                     |
+| Authentication  | JWT, bcrypt                   |
+| Frontend        | HTML, CSS, Vanilla JavaScript |
+| QR System       | qrcode, html5-qrcode          |
+| Email Service   | Nodemailer                    |
+| Package Manager | pnpm                          |
 
 ---
 
 ## 📁 Project Structure
-```
 
+```bash
 .
 ├── backend/
-│ ├── config/ # DB connection, network settings
-│ ├── controllers/ # Auth, staff, attendance, visitors, dashboard
-│ ├── middleware/ # JWT auth, network validation, role check
-│ ├── models/ # Sequelize models (User, AttendanceLog, Visitor)
-│ ├── routes/ # API route definitions
-│ ├── services/ # Email, QR generation
-│ ├── utils/ # Password generator
-│ ├── .env.example # Environment variables template
-│ └── server.js
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── utils/
+│   ├── .env.example
+│   └── server.js
+│
 ├── frontend/
-│ ├── css/ # style.css (glassmorphism, responsive)
-│ ├── js/ # auth.js, dashboard.js, staff.js
-│ ├── pages/ # dashboard.html, staff-dashboard.html
-│ ├── assets/ # images
-│ └── index.html
+│   ├── css/
+│   ├── js/
+│   ├── pages/
+│   ├── assets/
+│   └── index.html
+│
+├── seed.js
+├── package.json
+├── pnpm-lock.yaml
 ├── .gitignore
-├── README.md
-└── seed.js # optional dev seed (admin + demo staff)
-
-````
+└── README.md
+```
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v18+)
-- MySQL (v8+)
-- pnpm (install with `npm i -g pnpm` if needed)
 
-### Clone & Install
+- Node.js v18+
+- MySQL v8+
+- pnpm
+
+Install pnpm globally if needed:
+
+```bash
+npm install -g pnpm
+```
+
+---
+
+## 📦 Installation
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/yourusername/entry-log-system.git
 cd entry-log-system
+```
+
+Install dependencies:
+
+```bash
 pnpm install
-````
+```
 
-### Database Setup
+---
 
-1. Create a MySQL database, e.g. `entry_log_db`.
-2. Copy `.env.example` to `.env` and fill in your credentials.
-3. The server will auto‑create tables via Sequelize sync.
+## ⚙️ Environment Variables
 
-### Environment Variables (`.env`)
+Create a `.env` file inside the backend directory:
 
-```ini
+```env
 PORT=5000
 
 DB_HOST=localhost
@@ -90,10 +112,11 @@ DB_USER=root
 DB_PASSWORD=yourpassword
 DB_NAME=entry_log_db
 
-JWT_SECRET=change_this_to_a_long_random_string
+JWT_SECRET=your_super_secret_key
 JWT_EXPIRES_IN=8h
 
 ALLOWED_SUBNETS=192.168.1.,10.0.0.,127.0.0.,::1
+
 FRONTEND_URL=http://127.0.0.1:5500/frontend
 
 EMAIL_HOST=smtp.gmail.com
@@ -102,112 +125,138 @@ EMAIL_USER=your@gmail.com
 EMAIL_PASS=your_app_password
 ```
 
-> Use a [Gmail App Password](https://support.google.com/accounts/answer/185833) or [Mailtrap](https://mailtrap.io/) for testing.
+---
 
-### Run Backend
+## 🗄️ Database Setup
+
+Create a MySQL database:
+
+```sql
+CREATE DATABASE entry_log_db;
+```
+
+The application will automatically sync Sequelize models during startup.
+
+---
+
+## ▶️ Run the Backend
+
+Development mode:
 
 ```bash
-pnpm run dev   # nodemon auto‑restart
-# or
+pnpm run dev
+```
+
+Production mode:
+
+```bash
 node server.js
 ```
 
-Backend runs on `http://localhost:5000`.
+Backend runs on:
 
-### Serve Frontend
+```txt
+http://localhost:5000
+```
 
-The frontend is static – use **Live Server** in VS Code:
+---
 
-- Right‑click `frontend/index.html` → Open with Live Server
-- Serves on `http://127.0.0.1:5500`
+## 🌐 Run the Frontend
 
-Make sure `FRONTEND_URL` in `.env` matches that address (for QR code generation).
+The frontend is static and can be served using VS Code Live Server.
 
-### Seed Admin (Optional)
+Open:
+
+```txt
+frontend/index.html
+```
+
+Default frontend URL:
+
+```txt
+http://127.0.0.1:5500
+```
+
+---
+
+## 🌱 Seed Demo Data (Optional)
 
 ```bash
 node seed.js
 ```
 
-Creates:
+Example accounts:
 
-- Admin: `admin@company.com` / `Admin@123`
-- Demo staff: `john.doe@company.com` / `Staff@123`
+```txt
+Admin
+Email: admin@company.com
+Password: Admin@123
+```
 
-_(You can delete or comment out the staff part in `seed.js` for production.)_
-
----
-
-## 🔗 API Endpoints (Summary)
-
-| Method | Endpoint                      | Description                   | Auth          |
-| ------ | ----------------------------- | ----------------------------- | ------------- |
-| POST   | `/api/auth/login`             | Login                         | public        |
-| POST   | `/api/staff`                  | Create staff                  | admin         |
-| GET    | `/api/staff`                  | List staff                    | admin         |
-| DELETE | `/api/staff/:id`              | Delete staff                  | admin         |
-| GET    | `/api/staff/:id/qrcode`       | Get QR code                   | admin or self |
-| POST   | `/api/attendance/check-in`    | Check‑in (network validated)  | staff         |
-| POST   | `/api/attendance/check-out`   | Check‑out (network validated) | staff         |
-| GET    | `/api/attendance/logs`        | Attendance logs               | admin         |
-| POST   | `/api/visitors`               | Register visitor              | admin         |
-| PUT    | `/api/visitors/:id/exit`      | Record visitor exit           | admin         |
-| GET    | `/api/visitors`               | List visitors                 | admin         |
-| GET    | `/api/dashboard/stats`        | Dashboard stats               | admin         |
-| GET    | `/api/reports/attendance/csv` | Export CSV                    | admin         |
-
-All protected routes require `Authorization: Bearer <token>` header.
+```txt
+Staff
+Email: john.doe@company.com
+Password: Staff@123
+```
 
 ---
 
-## 🧪 Testing the Flow
+## 🔗 API Endpoints
 
-1. Login as admin → **Staff tab** → Add a new staff (unique email).
-2. Staff receives email with password.
-3. Staff logs in at `/frontend/index.html` (or via QR scan).
-4. Staff clicks **Show My QR Code** → downloads/scans personal QR.
-5. Staff clicks **Check In / Check Out** (must be on allowed IP).
-6. Admin sees stats, logs, and can export CSV.
+| Method | Endpoint                      | Description           |
+| ------ | ----------------------------- | --------------------- |
+| POST   | `/api/auth/login`             | User login            |
+| POST   | `/api/staff`                  | Create staff          |
+| GET    | `/api/staff`                  | Get all staff         |
+| DELETE | `/api/staff/:id`              | Delete staff          |
+| POST   | `/api/attendance/check-in`    | Staff check-in        |
+| POST   | `/api/attendance/check-out`   | Staff check-out       |
+| GET    | `/api/attendance/logs`        | Attendance logs       |
+| POST   | `/api/visitors`               | Register visitor      |
+| PUT    | `/api/visitors/:id/exit`      | Visitor exit          |
+| GET    | `/api/dashboard/stats`        | Dashboard statistics  |
+| GET    | `/api/reports/attendance/csv` | Export attendance CSV |
 
 ---
 
-## 📸 Screenshots
+## 🧪 Testing Flow
 
-_(Add your own screenshots here – login page, admin dashboard, staff dashboard, QR code display, visitor registration.)_
+1. Login as admin
+2. Create a staff account
+3. Staff receives generated credentials via email
+4. Staff logs in using email/password or QR
+5. Staff performs check-in/check-out
+6. Admin monitors attendance logs and exports reports
 
 ---
 
 ## ⚠️ Limitations
 
-- Network validation only protects check‑in/out (login & dashboard are not restricted by IP – this is a design choice to allow remote admin access).
-- No real‑time auto‑refresh (switch tabs to update).
-- QR scanner requires HTTPS or localhost due to browser security policies.
+- Network validation only applies to attendance actions
+- No real-time updates
+- QR scanner requires HTTPS or localhost
 
 ---
 
 ## 🔮 Future Improvements
 
-- WebSocket real‑time updates (Socket.io)
-- Password reset / change password
-- Facial recognition / biometrics
-- Mobile app (React Native / Flutter)
-- PDF reports
+- Real-time updates with WebSockets
+- Password reset functionality
+- Mobile application
+- Biometric authentication
+- PDF report generation
 
 ---
 
 ## 📄 License
 
-MIT – free for educational and commercial use.
+MIT License
 
 ---
 
 ## 👤 Author
 
-Your Name – [GitHub](https://github.com/RenisideOfficial)
+Reniside
 
-Project Link: [https://github.com/yourusername/entry-log-system](https://github.com/RenisideOfficial/Network-Based-Access-Control-For-Schools)
-
-```
-
-Copy this entire block into a file named `README.md` in your project root. It will render correctly on GitHub. No thesis framing, uses `pnpm`, and is a generic open‑source style.
-```
+GitHub: https://github.com/RenisideOfficial
+Project: https://github.com/RenisideOfficial/Network-Based-Access-Control-For-Schools
