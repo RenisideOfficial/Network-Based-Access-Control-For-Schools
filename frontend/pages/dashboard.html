@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  </head>
+  <body>
+    <!-- DEBUG DIV – will show errors if any -->
+    <div
+      id="debug-container"
+      style="
+        background: #ff4444;
+        color: white;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 8px;
+        display: none;
+      "></div>
+
+    <div class="navbar">
+      <span><i class="fas fa-chalkboard-user"></i> Admin Dashboard</span>
+      <button class="logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+
+    <div class="container">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="stats">
+          <i class="fas fa-chart-line"></i> Stats
+        </button>
+        <button class="tab-btn" data-tab="staff">
+          <i class="fas fa-users"></i> Staff
+        </button>
+        <button class="tab-btn" data-tab="visitors">
+          <i class="fas fa-user-friends"></i> Visitors
+        </button>
+        <button class="tab-btn" data-tab="logs">
+          <i class="fas fa-history"></i> Attendance Logs
+        </button>
+      </div>
+
+      <!-- STATS TAB -->
+      <div id="stats-tab" class="tab-content active">
+        <h3>Dashboard Statistics</h3>
+        <div id="stats"></div>
+      </div>
+
+      <!-- STAFF TAB -->
+      <div id="staff-tab" class="tab-content">
+        <h3><i class="fas fa-user-plus"></i> Manage Staff</h3>
+        <form id="createStaffForm">
+          <input type="text" id="full_name" placeholder="Full Name" required />
+          <input
+            type="text"
+            id="employee_id"
+            placeholder="Employee ID"
+            required />
+          <input type="email" id="email" placeholder="Email" required />
+          <button type="submit">
+            <i class="fas fa-plus-circle"></i> Add Staff
+          </button>
+        </form>
+        <div class="table-responsive">
+          <table id="staffTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Employee ID</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- VISITORS TAB -->
+      <div id="visitors-tab" class="tab-content">
+        <h3><i class="fas fa-door-open"></i> Register Visitor</h3>
+        <form id="visitorForm">
+          <input
+            type="text"
+            id="visitor_name"
+            placeholder="Full Name"
+            required />
+          <input type="text" id="phone" placeholder="Phone" />
+          <input type="text" id="purpose" placeholder="Purpose" required />
+          <input type="text" id="host" placeholder="Host Name" />
+          <button type="submit"><i class="fas fa-save"></i> Register</button>
+        </form>
+        <div class="table-responsive">
+          <table id="visitorTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Purpose</th>
+                <th>Host</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- LOGS TAB -->
+      <div id="logs-tab" class="tab-content">
+        <h3><i class="fas fa-list"></i> Attendance Logs</h3>
+        <button id="exportCsv">
+          <i class="fas fa-file-csv"></i> Export CSV
+        </button>
+        <div class="table-responsive">
+          <table id="logsTable">
+            <thead>
+              <tr>
+                <th>Staff</th>
+                <th>Employee ID</th>
+                <th>Time In</th>
+                <th>Time Out</th>
+                <th>IP</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/dashboard.js?v=3"></script>
+  </body>
+</html>

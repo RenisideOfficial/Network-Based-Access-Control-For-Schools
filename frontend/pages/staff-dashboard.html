@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Portal</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <span><i class="fas fa-id-badge"></i> Staff Portal</span>
+      <button
+        class="logout-btn"
+        id="logoutBtn"
+        onclick="
+          localStorage.clear();
+          sessionStorage.clear();
+          window.location.href = '/frontend/index.html';
+        ">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+    <div class="container">
+      <div id="userInfo" style="font-size: 1.2rem; font-weight: 500"></div>
+      <div class="qr-section">
+        <h3><i class="fas fa-qrcode"></i> Your QR Code</h3>
+        <div id="qrCodeContainer"></div>
+        <button id="showQrBtn">
+          <i class="fas fa-eye"></i> Show My QR Code
+        </button>
+      </div>
+      <div class="attendance-section">
+        <button id="checkInBtn">
+          <i class="fas fa-sign-in-alt"></i> Check In
+        </button>
+        <button id="checkOutBtn">
+          <i class="fas fa-sign-out-alt"></i> Check Out
+        </button>
+        <div id="attendanceStatus"></div>
+      </div>
+      <div>
+        <h3><i class="fas fa-camera"></i> Scan QR Code (Test Entry)</h3>
+        <div
+          id="qr-reader"
+          style="width: 100%; max-width: 350px; margin: 0 auto"></div>
+        <div id="scanResult"></div>
+      </div>
+    </div>
+    <script src="../js/staff.js"></script>
+  </body>
+</html>
